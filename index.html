@@ -280,12 +280,12 @@
       </div>
     </div>
 
-    <!-- TAB 3: REFER PAGE (DYNAMIC REFERRED STATS) -->
+    <!-- TAB 3: REFER PAGE -->
     <div id="tabRefer" class="p-4 space-y-5 hidden">
       <div class="bg-white rounded-3xl p-5 text-center card-shadow border border-gray-100">
         <i class="fa-solid fa-gift text-amber-500 text-4xl mb-2"></i>
         <h3 class="text-xl font-black text-gray-800">বন্ধুদের রেফার করুন</h3>
-        <p class="text-xs font-bold text-gray-500 mt-1">ফ্রেন্ড অনবোর্ডিং + ৫ এডস কমপ্লিট করলে পাবেন ১০ BDT!</p>
+        <p class="text-xs font-bold text-gray-500 mt-1">প্রতি ফ্রেন্ডে 7 BD! নতুন ইউজার পাবে 3 BD!</p>
 
         <div class="mt-4 flex items-center bg-gray-50 border border-gray-200 rounded-2xl p-1.5 pl-3">
           <input type="text" id="refLinkInput" readonly value="" class="bg-transparent text-xs text-gray-600 flex-1 outline-none font-mono">
@@ -296,37 +296,35 @@
         </div>
       </div>
 
-      <!-- Realtime Referral Stats from Backend -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <!-- Team Stats -->
+      <div class="grid grid-cols-3 gap-3">
         <div class="bg-white p-3 rounded-2xl text-center card-shadow border border-gray-100">
-          <span class="text-[10px] font-bold text-gray-400 block">মোট রেফার</span>
-          <span class="text-base font-black text-gray-800" id="statTotalReferrals">0</span>
+          <span class="text-[10px] font-bold text-gray-400 block">মোট সদস্য</span>
+          <span class="text-base font-black text-gray-800" id="statTotalMembers">0</span>
         </div>
         <div class="bg-white p-3 rounded-2xl text-center card-shadow border border-gray-100">
-          <span class="text-[10px] font-bold text-emerald-600 block">সফল রেফার</span>
-          <span class="text-base font-black text-emerald-600" id="statSuccessfulReferrals">0</span>
+          <span class="text-[10px] font-bold text-gray-400 block">ACTIVE</span>
+          <span class="text-base font-black text-gray-800" id="statActiveMembers">0</span>
         </div>
         <div class="bg-white p-3 rounded-2xl text-center card-shadow border border-gray-100">
-          <span class="text-[10px] font-bold text-amber-500 block">পেন্ডিং রেফার</span>
-          <span class="text-base font-black text-amber-500" id="statPendingReferrals">0</span>
-        </div>
-        <div class="bg-white p-3 rounded-2xl text-center card-shadow border border-gray-100">
-          <span class="text-[10px] font-bold text-rose-500 block">রেফার ইনকাম</span>
-          <span class="text-base font-black text-rose-600" id="statReferralEarnings">৳0</span>
+          <span class="text-[10px] font-bold text-gray-400 block">INACTIVE</span>
+          <span class="text-base font-black text-gray-800">0</span>
         </div>
       </div>
 
-      <!-- TOP REFERS LEADERBOARD -->
+      <!-- TOP REFERS LEADERBOARD (EXACT ORIGINAL PODIUM & LIST RESTORED) -->
       <div>
         <h4 class="font-bold text-gray-800 text-sm mb-3 flex items-center space-x-2">
           <i class="fa-solid fa-crown text-amber-500"></i>
           <span>Top Refers</span>
         </h4>
 
+        <!-- TOP 3 PODIUM -->
         <div id="top3Podium" class="grid grid-cols-3 gap-2 items-end pt-2 pb-4">
           <!-- JS dynamic podium -->
         </div>
 
+        <!-- REST OF LEADERBOARD LIST -->
         <div id="leaderboardList" class="bg-white rounded-2xl card-shadow border border-gray-100 divide-y divide-gray-100">
           <!-- JS dynamic list -->
         </div>
@@ -392,7 +390,7 @@
       </div>
     </div>
 
-    <!-- BOTTOM NAVIGATION BAR (WITH EXACT HIGHLIGHT COLORS) -->
+    <!-- BOTTOM NAVIGATION BAR (WITH EXACT HIGHLIGHT COLORS REQUESTED) -->
     <div class="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-lg border-t border-slate-200/80 px-3 py-2 flex justify-around items-center z-40 shadow-2xl">
       <button onclick="switchTab('home')" id="navHome" class="flex flex-col items-center nav-active transition-all">
         <i class="fa-solid fa-house text-xl"></i>
@@ -671,13 +669,6 @@
       document.getElementById('withdrawCurrentBalance').innerText = balStr;
       document.getElementById('cardReferCount').innerText = userData.referrals || 0;
 
-      // Update Referral Stats
-      const totalRef = userData.referrals || 0;
-      document.getElementById('statTotalReferrals').innerText = totalRef;
-      document.getElementById('statSuccessfulReferrals').innerText = totalRef;
-      document.getElementById('statPendingReferrals').innerText = 0;
-      document.getElementById('statReferralEarnings').innerText = '৳' + (totalRef * 7);
-
       updateSlotCooldownUI(1);
       updateSlotCooldownUI(2);
     }
@@ -792,11 +783,13 @@
       });
     }
 
-    // 9. REFERRAL LEADERBOARD
+    // 9. REFERRAL LEADERBOARD (EXACT ORIGINAL PODIUM & LIST RESTORED)
     function loadReferralLeaderboard() {
       db.ref('users').on('value', (snapshot) => {
         const podium = document.getElementById('top3Podium');
         const list = document.getElementById('leaderboardList');
+        if (!podium || !list) return;
+
         podium.innerHTML = '';
         list.innerHTML = '';
 
@@ -807,8 +800,12 @@
           allUsers.push({ uid: child.key, ...child.val() });
         });
 
-        document.getElementById('statTotalMembers').innerText = allUsers.length;
-        document.getElementById('statActiveMembers').innerText = allUsers.filter(u => (u.referrals || 0) > 0).length;
+        if (document.getElementById('statTotalMembers')) {
+          document.getElementById('statTotalMembers').innerText = allUsers.length;
+        }
+        if (document.getElementById('statActiveMembers')) {
+          document.getElementById('statActiveMembers').innerText = allUsers.filter(u => (u.referrals || 0) > 0).length;
+        }
 
         allUsers.sort((a, b) => (b.referrals || 0) - (a.referrals || 0));
 
@@ -1101,7 +1098,7 @@
       });
     }
 
-    // 12. TAB SWITCHING (EXACT ACTIVE PINK HIGHLIGHT)
+    // 12. TAB SWITCHING (EXACT ACTIVE PINK HIGHLIGHT LIKE REQUESTED IMAGE)
     function switchTab(tab) {
       document.getElementById('tabHome').classList.add('hidden');
       document.getElementById('tabTasks').classList.add('hidden');
@@ -1155,4 +1152,4 @@
     }
   </script>
 </body>
-      </html>
+                                                                             </html>
