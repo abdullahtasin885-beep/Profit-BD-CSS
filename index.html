@@ -24,8 +24,6 @@
 
   <style>
     body { font-family: 'Hind Siliguri', sans-serif; background-color: #f1f5f9; user-select: none; }
-    
-    /* NEW CUSTOM PREMIUM GRADIENT HEADER */
     .gradient-header { background: linear-gradient(135deg, #e11d48 0%, #c026d3 50%, #7c3aed 100%); }
     .card-shadow { box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.03); }
     
@@ -72,19 +70,16 @@
 </head>
 <body class="bg-slate-100 text-gray-800 pb-24">
 
-  <!-- SPLASH SCREEN WITH LOGO -->
+  <!-- SPLASH SCREEN WITH PROFIT BD LOGO -->
   <div id="splashScreen" class="fixed inset-0 bg-gradient-to-b from-rose-50 via-purple-50 to-indigo-100 z-50 flex flex-col items-center justify-center p-6">
     <div class="relative flex items-center justify-center w-44 h-44 mb-3">
-      <!-- Animated Dotted Spinning Outer Circle -->
       <div class="absolute inset-0 rounded-full border-4 border-dashed border-rose-500 animate-spin"></div>
       
-      <!-- Uploaded Profit BD Logo Image -->
-      <div class="w-36 h-36 rounded-full flex items-center justify-center shadow-2xl overflow-hidden bg-emerald-950 border-2 border-amber-400 p-1">
-        <img src="https://i.ibb.co.com/gL3vFfLx/file-000000001ac8820ebfe45ffd47aa8779.png" class="w-full h-full object-contain rounded-full" alt="Profit BD Logo">
+      <div class="w-36 h-36 rounded-full flex items-center justify-center shadow-2xl overflow-hidden bg-white border-2 border-amber-400 p-1">
+        <img src="https://cdn.phototourl.com/free/2026-08-14-fee9f333-3dfb-4aa2-b489-08719e3ec941.png" class="w-full h-full object-contain rounded-full" alt="Profit BD Logo">
       </div>
     </div>
-    <!-- App Name under Logo -->
-    <h2 class="text-rose-700 font-black text-2xl tracking-wide mt-2">Profit BD</h2>
+    <h2 id="splashAppName" class="text-rose-700 font-black text-2xl tracking-wide mt-2">Profit BD</h2>
     <p class="text-gray-500 text-xs font-semibold mt-1">Loading...</p>
   </div>
 
@@ -102,7 +97,7 @@
     </div>
   </div>
 
-  <!-- TASK INSTRUCTION VIEW MODAL -->
+  <!-- STANDARD TASK INSTRUCTION VIEW MODAL -->
   <div id="taskInstructionModal" class="fixed inset-0 bg-black/60 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
     <div class="bg-white/95 rounded-3xl p-5 w-full max-w-sm space-y-4 text-center modal-3d-card">
       <h3 id="instTaskTitle" class="font-extrabold text-gray-800 text-lg flex items-center justify-center space-x-2">
@@ -112,7 +107,7 @@
       <div class="bg-rose-50/80 rounded-2xl p-3 border border-rose-100">
         <img id="instTaskBanner" src="https://via.placeholder.com/300x200" class="w-full h-48 object-contain rounded-xl shadow-sm mb-3">
         <p id="instTaskText" class="text-xs font-bold text-rose-900 leading-relaxed text-center">
-          অ্যাপটা ডাউনলোড করে রেজিস্ট্রেশন করুন এবং আমাদের দেওয়া স্ক্রিনশটের মত একটা স্ক্রিনশট সাবমিট করুন এবং ইউজার নেম দিন
+          অ্যাপটা ডাউনলোড করে রেজিস্ট্রেশন করুন এবং আমাদের দেওয়া স্ক্রিনশটের মত একটা স্ক্রিনশট সাবমিট করুন
         </p>
       </div>
 
@@ -131,7 +126,7 @@
     </div>
   </div>
 
-  <!-- TASK SUBMISSION PROOF MODAL -->
+  <!-- STANDARD TASK SUBMISSION PROOF MODAL -->
   <div id="taskSubmitModal" class="fixed inset-0 bg-black/60 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
     <div class="bg-white/95 rounded-3xl p-5 w-full max-w-sm space-y-4 text-center modal-3d-card">
       <h3 id="modalTaskTitle" class="font-extrabold text-gray-800 text-base">
@@ -164,12 +159,53 @@
     </div>
   </div>
 
+  <!-- ACCOUNT/ID SALE SUBMISSION MODAL -->
+  <div id="accountSaleModal" class="fixed inset-0 bg-black/60 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white/95 rounded-3xl p-5 w-full max-w-sm space-y-4 text-center modal-3d-card">
+      <div id="accModalHeader" class="flex items-center justify-center space-x-2">
+        <div id="accModalIcon" class="w-10 h-10 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center text-xl font-bold">
+          <i class="fa-solid fa-envelope"></i>
+        </div>
+        <h3 id="accModalTitle" class="font-extrabold text-gray-800 text-base">
+          একাউন্ট সেল জমা দিন
+        </h3>
+      </div>
+      <p id="accModalSubtitle" class="text-xs text-rose-600 font-bold">সঠিক ইমেইল ও পাসওয়ার্ড প্রদান করুন</p>
+
+      <div class="space-y-3 text-left">
+        <div>
+          <label id="accLabelIdentifier" class="block text-xs font-bold text-gray-700 mb-1">জিমেইল / ইমেইল</label>
+          <input type="text" id="accInputIdentifier" placeholder="যেমন: example@gmail.com" class="w-full bg-gray-50 border border-gray-200 rounded-2xl p-3 text-xs outline-none focus:border-rose-500 text-gray-800 font-mono">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">পাসওয়ার্ড</label>
+          <input type="text" id="accInputPassword" placeholder="একাউন্ট পাসওয়ার্ড লিখুন" class="w-full bg-gray-50 border border-gray-200 rounded-2xl p-3 text-xs outline-none focus:border-rose-500 text-gray-800 font-mono">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">নোট / রিকভারি কোড (ঐচ্ছিক)</label>
+          <textarea id="accInputNote" rows="2" placeholder="অতিরিক্ত কোনো নোট বা রিকভারি কোড থাকলে লিখুন..." class="w-full bg-gray-50 border border-gray-200 rounded-2xl p-3 text-xs outline-none focus:border-rose-500 text-gray-700"></textarea>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3 pt-2">
+        <button onclick="closeAccountSaleModal()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-3 rounded-2xl text-xs transition active:scale-95">
+          বাতিল
+        </button>
+        <button onclick="submitAccountForSale()" class="bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-3 rounded-2xl text-xs transition shadow-md active:scale-95">
+          বিক্রি নিশ্চিত করুন
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- MAIN APP CONTAINER -->
   <div id="mainApp" class="hidden">
     <!-- USER PROFILE BANNER -->
     <div class="gradient-header text-white p-5 rounded-b-3xl shadow-xl">
       <div class="flex items-center justify-between mb-4">
-        <span class="text-2xl font-black tracking-wide drop-shadow-sm">Profit BD</span>
+        <span id="appHeaderTitle" class="text-2xl font-black tracking-wide drop-shadow-sm">Profit BD</span>
       </div>
 
       <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-4 flex items-center justify-between border border-white/20 shadow-inner">
@@ -205,78 +241,68 @@
         </div>
       </div>
 
-      <!-- Ads Income Section -->
+      <!-- DYNAMIC HOME NOTICE -->
+      <div id="homeNoticeBox" class="bg-gradient-to-r from-rose-500 to-purple-600 rounded-2xl p-4 text-white shadow-md flex items-center space-x-3">
+        <i class="fa-solid fa-bullhorn text-2xl animate-bounce"></i>
+        <div>
+          <h4 class="font-bold text-xs uppercase text-rose-200">অফিশিয়াল নোটিশ</h4>
+          <p id="homeNoticeText" class="text-xs font-bold mt-0.5">টাস্ক কমপ্লিট করুন ও ইনকাম বাড়ান!</p>
+        </div>
+      </div>
+
+      <!-- Dynamic Daily Ads Income Section -->
       <div>
         <h3 class="font-bold text-gray-800 text-sm mb-3 flex items-center space-x-2">
           <i class="fa-solid fa-circle-play text-rose-500 text-base"></i> 
           <span>Daily Ads Income</span>
         </h3>
 
-        <div class="grid grid-cols-2 gap-4">
-          <!-- Ad Slot 1 (Limit: 50) -->
-          <div class="bg-white rounded-2xl p-4 text-center card-shadow border border-gray-100 flex flex-col justify-between min-h-[160px]">
-            <div id="slot1ActiveBox">
-              <button onclick="startAdWatch(1)" class="w-12 h-12 bg-rose-50 text-rose-600 rounded-full flex items-center justify-center mx-auto mb-2 text-xl hover:bg-rose-100 active:scale-90 transition shadow-sm">
-                <i class="fa-solid fa-caret-right text-2xl ml-1"></i>
-              </button>
-              <h4 class="font-bold text-gray-800 text-sm">Ad Slot 1</h4>
-              <p class="text-xs text-gray-500 font-medium my-1"><span id="slot1Watched">0</span>/50 Watched</p>
-              <p class="text-xs font-bold text-rose-600">+৳0.10 / Ad</p>
-            </div>
-
-            <!-- Slot 1 Cooldown Timer Box -->
-            <div id="slot1CooldownBox" class="hidden py-3 my-auto">
-              <i class="fa-solid fa-hourglass-half text-amber-500 text-2xl animate-spin mb-2"></i>
-              <span id="slot1CooldownTimer" class="bg-amber-50 text-amber-800 border border-amber-200/60 text-[10px] font-extrabold px-2 py-1.5 rounded-xl block leading-tight">
-                পরবর্তী Ads এর জন্য (7s) অপেক্ষা করুন
-              </span>
-            </div>
-
-            <div id="slot1CompletedBox" class="hidden py-4">
-              <span class="bg-rose-50 text-rose-600 border border-rose-200/60 text-xs font-extrabold px-3 py-2 rounded-xl block">
-                আজকের টাস্ক কমপ্লিট
-              </span>
-            </div>
-          </div>
-
-          <!-- Ad Slot 2 (Limit: 30) -->
-          <div class="bg-white rounded-2xl p-4 text-center card-shadow border border-gray-100 flex flex-col justify-between min-h-[160px]">
-            <div id="slot2ActiveBox">
-              <button onclick="startAdWatch(2)" class="w-12 h-12 bg-purple-50 text-purple-600 rounded-full flex items-center justify-center mx-auto mb-2 text-xl hover:bg-purple-100 active:scale-90 transition shadow-sm">
-                <i class="fa-solid fa-caret-right text-2xl ml-1"></i>
-              </button>
-              <h4 class="font-bold text-gray-800 text-sm">Ad Slot 2</h4>
-              <p class="text-xs text-gray-500 font-medium my-1"><span id="slot2Watched">0</span>/30 Watched</p>
-              <p class="text-xs font-bold text-purple-600">+৳0.05 / Ad</p>
-            </div>
-
-            <!-- Slot 2 Cooldown Timer Box -->
-            <div id="slot2CooldownBox" class="hidden py-3 my-auto">
-              <i class="fa-solid fa-hourglass-half text-amber-500 text-2xl animate-spin mb-2"></i>
-              <span id="slot2CooldownTimer" class="bg-amber-50 text-amber-800 border border-amber-200/60 text-[10px] font-extrabold px-2 py-1.5 rounded-xl block leading-tight">
-                পরবর্তী Ads এর জন্য (7s) অপেক্ষা করুন
-              </span>
-            </div>
-
-            <div id="slot2CompletedBox" class="hidden py-4">
-              <span class="bg-rose-50 text-rose-600 border border-rose-200/60 text-xs font-extrabold px-3 py-2 rounded-xl block">
-                আজকের টাস্ক কমপ্লিট
-              </span>
-            </div>
-          </div>
+        <!-- DYNAMIC AD SLOTS CONTAINER -->
+        <div id="dynamicAdSlotsContainer" class="grid grid-cols-2 gap-4">
+          <!-- Dynamic Ad Slot Cards rendered from Firebase -->
         </div>
       </div>
     </div>
 
     <!-- TAB 2: TASKS PAGE -->
     <div id="tabTasks" class="p-4 space-y-4 hidden">
-      <div class="bg-gradient-to-r from-purple-50 to-pink-50 border border-pink-200/80 rounded-2xl p-4 text-center shadow-sm">
-        <h3 class="text-lg font-extrabold text-purple-800">Task Center</h3>
-        <p class="text-xs font-semibold text-gray-600 mt-0.5">টাস্ক কমপ্লিট করে ইনকাম বাড়ান</p>
+      <div class="bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl p-4 text-center text-white shadow-md">
+        <h3 class="text-lg font-extrabold">Task Center</h3>
+        <p class="text-xs text-pink-100 font-semibold mt-0.5">টাস্ক কমপ্লিট করুন এবং ইনকাম বাড়ান</p>
       </div>
 
-      <div id="taskListContainer" class="space-y-3">
-        <!-- JS dynamically fills this -->
+      <!-- Task Sub-Tab Filter Bar (TOTALLY HIDES WHEN ACCOUNT SALE IS OFF BY ADMIN) -->
+      <div id="taskSubTabFilterBar" class="flex items-center space-x-1 bg-white p-1 rounded-2xl card-shadow border border-gray-100 text-xs font-bold overflow-x-auto">
+        <button onclick="switchTaskSubTab('standard')" id="btnSubTabStandard" class="flex-1 py-2 px-3 rounded-xl bg-rose-500 text-white transition text-center whitespace-nowrap">
+          সাধারণ টাস্ক
+        </button>
+        <button onclick="switchTaskSubTab('accountSale')" id="btnSubTabSale" class="flex-1 py-2 px-3 rounded-xl text-gray-500 hover:text-gray-800 transition text-center whitespace-nowrap hidden">
+          আইডি/একাউন্ট সেল
+        </button>
+        <button onclick="switchTaskSubTab('mySales')" id="btnSubTabMySales" class="flex-1 py-2 px-3 rounded-xl text-gray-500 hover:text-gray-800 transition text-center whitespace-nowrap hidden">
+          সেল হিস্ট্রি
+        </button>
+      </div>
+
+      <!-- SUB-TAB 1: STANDARD TASKS -->
+      <div id="subTabStandardTasks" class="space-y-3">
+        <div id="taskListContainer" class="space-y-3">
+          <!-- JS fills standard tasks -->
+        </div>
+      </div>
+
+      <!-- SUB-TAB 2: ACCOUNT SALE TASKS -->
+      <div id="subTabAccountSaleTasks" class="space-y-3 hidden">
+        <div id="accountSaleTasksContainer" class="space-y-3">
+          <!-- JS fills account sale tasks -->
+        </div>
+      </div>
+
+      <!-- SUB-TAB 3: MY SALES HISTORY -->
+      <div id="subTabMySalesHistory" class="space-y-3 hidden">
+        <div id="mySalesHistoryContainer" class="space-y-2">
+          <!-- JS fills sales history -->
+        </div>
       </div>
     </div>
 
@@ -285,10 +311,16 @@
       <div class="bg-white rounded-3xl p-5 text-center card-shadow border border-gray-100">
         <i class="fa-solid fa-gift text-amber-500 text-4xl mb-2"></i>
         <h3 class="text-xl font-black text-gray-800">বন্ধুদের রেফার করুন</h3>
-        <p class="text-xs font-bold text-gray-500 mt-1">প্রতি ফ্রেন্ডে 7 BD! নতুন ইউজার পাবে 3 BD!</p>
 
         <div class="mt-4 flex items-center bg-gray-50 border border-gray-200 rounded-2xl p-1.5 pl-3">
           <input type="text" id="refLinkInput" readonly value="" class="bg-transparent text-xs text-gray-600 flex-1 outline-none font-mono">
+          
+          <!-- Copy Button (Copies ONLY the URL) -->
+          <button onclick="copyRefLink()" title="কপি করুন" class="bg-gray-200 hover:bg-gray-300 text-gray-700 p-2.5 rounded-xl text-xs font-bold mr-1 active:scale-95 transition">
+            <i class="fa-regular fa-copy"></i>
+          </button>
+
+          <!-- Direct Share Button (Single Link Only) -->
           <button onclick="shareReferralLink()" class="bg-gradient-to-r from-pink-500 to-rose-500 text-white px-3.5 py-2.5 rounded-xl text-xs font-bold active:scale-95 transition shadow flex items-center space-x-1">
             <i class="fa-brands fa-telegram text-sm"></i>
             <span>শেয়ার করুন</span>
@@ -296,35 +328,33 @@
         </div>
       </div>
 
-      <!-- Team Stats -->
+      <!-- Personal Team Stats (SPECIFIC TO THIS LOGGED-IN USER) -->
       <div class="grid grid-cols-3 gap-3">
         <div class="bg-white p-3 rounded-2xl text-center card-shadow border border-gray-100">
           <span class="text-[10px] font-bold text-gray-400 block">মোট সদস্য</span>
           <span class="text-base font-black text-gray-800" id="statTotalMembers">0</span>
         </div>
         <div class="bg-white p-3 rounded-2xl text-center card-shadow border border-gray-100">
-          <span class="text-[10px] font-bold text-gray-400 block">ACTIVE</span>
-          <span class="text-base font-black text-gray-800" id="statActiveMembers">0</span>
+          <span class="text-[10px] font-bold text-emerald-600 block">ACTIVE</span>
+          <span class="text-base font-black text-emerald-600" id="statActiveMembers">0</span>
         </div>
         <div class="bg-white p-3 rounded-2xl text-center card-shadow border border-gray-100">
-          <span class="text-[10px] font-bold text-gray-400 block">INACTIVE</span>
-          <span class="text-base font-black text-gray-800">0</span>
+          <span class="text-[10px] font-bold text-rose-500 block">INACTIVE</span>
+          <span class="text-base font-black text-rose-600" id="statInactiveMembers">0</span>
         </div>
       </div>
 
-      <!-- TOP REFERS LEADERBOARD (EXACT ORIGINAL PODIUM & LIST RESTORED) -->
+      <!-- TOP REFERS LEADERBOARD -->
       <div>
         <h4 class="font-bold text-gray-800 text-sm mb-3 flex items-center space-x-2">
           <i class="fa-solid fa-crown text-amber-500"></i>
           <span>Top Refers</span>
         </h4>
 
-        <!-- TOP 3 PODIUM -->
         <div id="top3Podium" class="grid grid-cols-3 gap-2 items-end pt-2 pb-4">
           <!-- JS dynamic podium -->
         </div>
 
-        <!-- REST OF LEADERBOARD LIST -->
         <div id="leaderboardList" class="bg-white rounded-2xl card-shadow border border-gray-100 divide-y divide-gray-100">
           <!-- JS dynamic list -->
         </div>
@@ -345,7 +375,7 @@
             <option value="Bkash">Bkash</option>
             <option value="Nagad">Nagad</option>
           </select>
-          <p class="text-[11px] text-pink-500 font-bold mt-1">Min Withdraw: 30 BD</p>
+          <p id="withdrawNoticeMin" class="text-[11px] text-pink-500 font-bold mt-1">Min Withdraw: 30 BD</p>
         </div>
 
         <div>
@@ -384,13 +414,12 @@
         <p class="text-xs text-rose-100 font-semibold mt-1">আপনার যেকোনো প্রয়োজনে এডমিন বা অফিশিয়াল চ্যানেলে যোগাযোগ করুন</p>
       </div>
 
-      <!-- DYNAMIC SUPPORT ITEMS CONTAINER -->
       <div id="dynamicSupportContainer" class="space-y-3">
         <!-- JS fills this dynamically from Firebase db.ref('supportItems') -->
       </div>
     </div>
 
-    <!-- BOTTOM NAVIGATION BAR (WITH EXACT HIGHLIGHT COLORS REQUESTED) -->
+    <!-- BOTTOM NAVIGATION BAR -->
     <div class="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-lg border-t border-slate-200/80 px-3 py-2 flex justify-around items-center z-40 shadow-2xl">
       <button onclick="switchTab('home')" id="navHome" class="flex flex-col items-center nav-active transition-all">
         <i class="fa-solid fa-house text-xl"></i>
@@ -435,8 +464,10 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    // 2. TELEGRAM USER DATA EXTRACTION
+    // 2. TELEGRAM USER DATA EXTRACTION / HTML VIEWER TEST MODE
     let tg = window.Telegram ? window.Telegram.WebApp : null;
+    let isTestUser = false;
+
     let userId = "3209180547"; 
     let userName = "Abdullah Tasin";
     let userHandle = "abdullahtasin885";
@@ -448,19 +479,28 @@
       userName = u.first_name ? (u.first_name + (u.last_name ? " " + u.last_name : "")) : userName;
       userHandle = u.username || userHandle;
       userPhoto = u.photo_url || userPhoto;
+    } else {
+      // HTML VIEWER / BROWSER TESTING MODE (AUTO-DELETE TEST DATA IN 30 MINS)
+      isTestUser = true;
+      userId = "test_user_preview";
+      userName = "User";
+      userHandle = "user";
+      userPhoto = "https://via.placeholder.com/100/ec4899/ffffff?text=User";
     }
 
-    let userData = { balance: 0, referrals: 0, slot1Watched: 0, slot2Watched: 0, lastReset: 0 };
+    let userData = { balance: 0, referrals: 0, slot1Watched: 0, slot2Watched: 0, lastReset: 0, created_at: Date.now() };
     let userReferralLink = `https://t.me/Profit_BD_Bot/app?startapp=${userId}`;
     let selectedTaskIdForProof = null;
-    let currentTaskDetails = {};
+    let selectedAccountSaleTask = null;
+    let userSubmissions = {};
     let adsEnabledGlobal = true;
+    let configuredAdSlots = [];
 
     // PENDING REWARD & SLOT 7-SECOND COOLDOWN STATE
-    let pendingRewardSlot = null;
+    let pendingRewardSlotKey = null;
     let pendingRewardAmount = 0;
-    let slotCooldowns = { 1: 0, 2: 0 };
-    let slotTimerIntervals = { 1: null, 2: null };
+    let slotCooldowns = {};
+    let slotTimerIntervals = {};
 
     window.addEventListener('DOMContentLoaded', () => {
       document.getElementById('userName').innerText = userName;
@@ -471,11 +511,15 @@
       document.getElementById('refLinkInput').value = userReferralLink;
 
       loadFirebaseUserData();
-      loadTasks();
+      loadUserSubmissions();
+      loadAccountSaleTasks();
+      loadMySalesHistory();
       loadReferralLeaderboard();
       loadWithdrawHistory();
       checkGlobalAdsSetting();
       loadDynamicSupportItems();
+      loadDynamicAdSlots();
+      loadAppTextsSetting();
     });
 
     // 3. CUSTOM ANIMATED 2D/3D POPUP SYSTEM & CLAIM ON OK CLICK
@@ -503,45 +547,71 @@
       modal.classList.remove('hidden');
     }
 
-    // CLOSE POPUP & CLAIM REWARD ON OK BUTTON PRESS
     function closePopup() {
       document.getElementById('customPopupModal').classList.add('hidden');
 
-      // IF THERE IS A PENDING AD REWARD, CLAIM & ADD BALANCE NOW UPON CLICKING OK!
-      if (pendingRewardSlot !== null && pendingRewardAmount > 0) {
-        const slot = pendingRewardSlot;
+      if (pendingRewardSlotKey !== null && pendingRewardAmount > 0) {
+        const slotKey = pendingRewardSlotKey;
         const reward = pendingRewardAmount;
-        pendingRewardSlot = null;
+        pendingRewardSlotKey = null;
         pendingRewardAmount = 0;
 
-        // Add balance to local state & UI
         userData.balance = parseFloat(((userData.balance || 0) + reward).toFixed(2));
-        if (slot === 1) {
-          userData.slot1Watched = (userData.slot1Watched || 0) + 1;
-        } else {
-          userData.slot2Watched = (userData.slot2Watched || 0) + 1;
-        }
+        
+        if (!userData.slotWatchedMap) userData.slotWatchedMap = {};
+        userData.slotWatchedMap[slotKey] = (userData.slotWatchedMap[slotKey] || 0) + 1;
 
-        updateUI(); // Instantly reflect added Taka on screen
+        updateUI();
 
-        // Save to Firebase database in background
         let updates = {};
-        if (slot === 1) {
-          updates['users/' + userId + '/slot1Watched'] = userData.slot1Watched;
-        } else {
-          updates['users/' + userId + '/slot2Watched'] = userData.slot2Watched;
-        }
+        updates['users/' + userId + '/slotWatchedMap/' + slotKey] = userData.slotWatchedMap[slotKey];
         updates['users/' + userId + '/balance'] = userData.balance;
 
         db.ref().update(updates).catch((err) => console.error("Firebase update notice:", err));
       }
     }
 
-    // 4. CHECK GLOBAL ADS TOGGLE FROM ADMIN
+    // 4. LOAD GLOBAL SETTINGS (ADS, APP TEXTS, ACCOUNT SALE TOTAL HIDE/SHOW)
     function checkGlobalAdsSetting() {
       db.ref('settings/adsEnabled').on('value', (snapshot) => {
         if (snapshot.exists()) {
           adsEnabledGlobal = snapshot.val();
+        }
+      });
+
+      // Account Sale Toggle (TOTALLY HIDES THE SUB-TAB FILTER BAR WHEN DISABLED)
+      db.ref('settings/accountSaleEnabled').on('value', (snap) => {
+        const isEnabled = snap.exists() ? snap.val() : true;
+        const btnSale = document.getElementById('btnSubTabSale');
+        const btnMySales = document.getElementById('btnSubTabMySales');
+        const filterBar = document.getElementById('taskSubTabFilterBar');
+
+        if (btnSale && btnMySales) {
+          if (isEnabled) {
+            btnSale.classList.remove('hidden');
+            btnMySales.classList.remove('hidden');
+            if (filterBar) filterBar.classList.remove('hidden');
+          } else {
+            btnSale.classList.add('hidden');
+            btnMySales.classList.add('hidden');
+            if (filterBar) filterBar.classList.add('hidden'); // TOTALLY HIDES THE SUB-TAB BAR
+            switchTaskSubTab('standard');
+          }
+        }
+      });
+    }
+
+    function loadAppTextsSetting() {
+      db.ref('settings/appTexts').on('value', (snap) => {
+        if (snap.exists()) {
+          const texts = snap.val();
+          if (texts.appName) {
+            document.getElementById('appHeaderTitle').innerText = texts.appName;
+            document.getElementById('splashAppName').innerText = texts.appName;
+          }
+          if (texts.homeNotice) {
+            document.getElementById('homeNoticeText').innerText = texts.homeNotice;
+          }
         }
       });
     }
@@ -624,39 +694,72 @@
             photo: userPhoto,
             balance: initialBal,
             referrals: 0,
-            slot1Watched: 0,
-            slot2Watched: 0,
-            lastReset: Date.now()
+            referredBy: (startParam && startParam !== userId) ? startParam : null,
+            slotWatchedMap: {},
+            lastReset: Date.now(),
+            created_at: Date.now(),
+            isTestUser: isTestUser
           };
           userRef.set(userData);
         } else {
           userData = snapshot.val();
           userRef.update({ name: userName, username: userHandle, photo: userPhoto });
-          checkDaily330AMReset(userRef);
+          
+          // Auto-delete HTML Viewer Test User after 30 mins
+          if (userData.isTestUser && Date.now() - (userData.created_at || 0) > 30 * 60 * 1000) {
+            userRef.remove();
+          }
+
+          checkDaily300AMReset(userRef);
         }
 
         updateUI();
+        loadPersonalReferralTeamStats();
         document.getElementById('splashScreen').classList.add('hidden');
         document.getElementById('mainApp').classList.remove('hidden');
       });
     }
 
-    // 6. DAILY 3:30 AM RESET LOGIC
-    function checkDaily330AMReset(userRef) {
+    // LOAD LOGGED-IN USER'S PERSONAL REFERRAL TEAM STATS (EXACT SPECIFIC TO THIS USER)
+    function loadPersonalReferralTeamStats() {
+      db.ref('users').on('value', (snap) => {
+        if (!snap.exists()) return;
+
+        let totalReferredByMe = userData.referrals || 0;
+        let activeCount = 0;
+
+        snap.forEach(child => {
+          const u = child.val();
+          if (u.referredBy === userId) {
+            const isActive = (u.balance > 0) || (u.slot1Watched > 0) || (u.slot2Watched > 0) || (u.referrals > 0);
+            if (isActive) activeCount++;
+          }
+        });
+
+        if (activeCount > totalReferredByMe) activeCount = totalReferredByMe;
+        let inactiveCount = totalReferredByMe - activeCount;
+        if (inactiveCount < 0) inactiveCount = 0;
+
+        document.getElementById('statTotalMembers').innerText = totalReferredByMe;
+        document.getElementById('statActiveMembers').innerText = activeCount;
+        document.getElementById('statInactiveMembers').innerText = inactiveCount;
+      });
+    }
+
+    // 6. DAILY 3:00 AM BANGLADESH TIME RESET LOGIC
+    function checkDaily300AMReset(userRef) {
       const now = new Date();
       const lastResetDate = new Date(userData.lastReset || 0);
 
-      let today330AM = new Date();
-      today330AM.setHours(3, 30, 0, 0);
+      let today3AM_BD = new Date();
+      today3AM_BD.setHours(3, 0, 0, 0);
 
-      if (now >= today330AM && lastResetDate < today330AM) {
-        userData.slot1Watched = 0;
-        userData.slot2Watched = 0;
+      if (now >= today3AM_BD && lastResetDate < today3AM_BD) {
+        userData.slotWatchedMap = {};
         userData.lastReset = Date.now();
 
         userRef.update({
-          slot1Watched: 0,
-          slot2Watched: 0,
+          slotWatchedMap: {},
           lastReset: userData.lastReset
         });
       }
@@ -669,11 +772,107 @@
       document.getElementById('withdrawCurrentBalance').innerText = balStr;
       document.getElementById('cardReferCount').innerText = userData.referrals || 0;
 
-      updateSlotCooldownUI(1);
-      updateSlotCooldownUI(2);
+      if (configuredAdSlots) {
+        configuredAdSlots.forEach(slot => {
+          updateSlotCooldownUI(slot.key);
+        });
+      }
     }
 
-    // 7. LOAD DYNAMIC TASKS
+    // LOAD DYNAMIC AD SLOTS FROM FIREBASE
+    function loadDynamicAdSlots() {
+      db.ref('settings/adSlots').on('value', (snap) => {
+        const container = document.getElementById('dynamicAdSlotsContainer');
+        if (!container) return;
+        container.innerHTML = '';
+        configuredAdSlots = [];
+
+        if (!snap.exists() || snap.numChildren() === 0) {
+          configuredAdSlots = [
+            { key: 'slot1', title: 'Ad Slot 1', reward: 0.10, limit: 50, zoneId: '11552843' },
+            { key: 'slot2', title: 'Ad Slot 2', reward: 0.05, limit: 30, zoneId: '11552843' }
+          ];
+        } else {
+          snap.forEach(c => {
+            configuredAdSlots.push({ key: c.key, ...c.val() });
+          });
+        }
+
+        configuredAdSlots.forEach(s => {
+          container.innerHTML += `
+            <div class="bg-white rounded-2xl p-4 text-center card-shadow border border-gray-100 flex flex-col justify-between min-h-[160px]">
+              <div id="${s.key}ActiveBox">
+                <button onclick="startAdWatch('${s.key}', ${s.reward}, ${s.limit})" class="w-12 h-12 bg-rose-50 text-rose-600 rounded-full flex items-center justify-center mx-auto mb-2 text-xl hover:bg-rose-100 active:scale-90 transition shadow-sm">
+                  <i class="fa-solid fa-caret-right text-2xl ml-1"></i>
+                </button>
+                <h4 class="font-bold text-gray-800 text-sm">${s.title || 'Ad Slot'}</h4>
+                <p class="text-xs text-gray-500 font-medium my-1"><span id="${s.key}Watched">0</span>/${s.limit || 50} Watched</p>
+                <p class="text-xs font-bold text-rose-600">+৳${parseFloat(s.reward || 0.10).toFixed(2)} / Ad</p>
+              </div>
+
+              <div id="${s.key}CooldownBox" class="hidden py-3 my-auto">
+                <i class="fa-solid fa-hourglass-half text-amber-500 text-2xl animate-spin mb-2"></i>
+                <span id="${s.key}CooldownTimer" class="bg-amber-50 text-amber-800 border border-amber-200/60 text-[10px] font-extrabold px-2 py-1.5 rounded-xl block leading-tight">
+                  পরবর্তী Ads এর জন্য (7s) অপেক্ষা করুন
+                </span>
+              </div>
+
+              <div id="${s.key}CompletedBox" class="hidden py-4">
+                <span class="bg-rose-50 text-rose-600 border border-rose-200/60 text-xs font-extrabold px-3 py-2 rounded-xl block">
+                  আজকের টাস্ক কমপ্লিট
+                </span>
+              </div>
+            </div>
+          `;
+        });
+
+        updateUI();
+      });
+    }
+
+    // LOAD USER SUBMISSIONS
+    function loadUserSubmissions() {
+      db.ref('submissions').orderByChild('uid').equalTo(userId).on('value', (snap) => {
+        userSubmissions = {};
+        if (snap.exists()) {
+          snap.forEach(c => {
+            const sub = c.val();
+            if (sub.taskId) {
+              userSubmissions[sub.taskId] = sub.status;
+            }
+          });
+        }
+        loadTasks();
+      });
+    }
+
+    // 7. TASK SUB-TABS SWITCHER
+    function switchTaskSubTab(subTab) {
+      document.getElementById('subTabStandardTasks').classList.add('hidden');
+      document.getElementById('subTabAccountSaleTasks').classList.add('hidden');
+      document.getElementById('subTabMySalesHistory').classList.add('hidden');
+
+      const btns = ['btnSubTabStandard', 'btnSubTabSale', 'btnSubTabMySales'];
+      btns.forEach(b => {
+        const el = document.getElementById(b);
+        if (el) {
+          el.className = "flex-1 py-2 px-3 rounded-xl text-gray-500 hover:text-gray-800 transition text-center whitespace-nowrap";
+        }
+      });
+
+      if (subTab === 'standard') {
+        document.getElementById('subTabStandardTasks').classList.remove('hidden');
+        document.getElementById('btnSubTabStandard').className = "flex-1 py-2 px-3 rounded-xl bg-rose-500 text-white transition text-center whitespace-nowrap font-bold shadow-sm";
+      } else if (subTab === 'accountSale') {
+        document.getElementById('subTabAccountSaleTasks').classList.remove('hidden');
+        document.getElementById('btnSubTabSale').className = "flex-1 py-2 px-3 rounded-xl bg-purple-600 text-white transition text-center whitespace-nowrap font-bold shadow-sm";
+      } else if (subTab === 'mySales') {
+        document.getElementById('subTabMySalesHistory').classList.remove('hidden');
+        document.getElementById('btnSubTabMySales').className = "flex-1 py-2 px-3 rounded-xl bg-pink-600 text-white transition text-center whitespace-nowrap font-bold shadow-sm";
+      }
+    }
+
+    // LOAD STANDARD TASKS
     function loadTasks() {
       db.ref('tasks').on('value', (snapshot) => {
         const container = document.getElementById('taskListContainer');
@@ -681,10 +880,9 @@
 
         if (!snapshot.exists() || snapshot.numChildren() === 0) {
           container.innerHTML = `
-            <div class="bg-white p-8 text-center rounded-2xl card-shadow border border-gray-100 my-4">
+            <div class="bg-white p-8 text-center rounded-2xl card-shadow border border-gray-100 my-2">
               <i class="fa-solid fa-folder-open text-gray-300 text-4xl mb-3 block"></i>
-              <p class="text-sm font-bold text-gray-700">বর্তমানে কোনো টাস্ক উপলব্ধ নেই</p>
-              <p class="text-xs text-gray-400 mt-1">নতুন টাস্ক পাওয়ার জন্য পরবর্তীতে ভিজিট করুন।</p>
+              <p class="text-sm font-bold text-gray-700">বর্তমানে কোনো সাধারণ টাস্ক উপলব্ধ নেই</p>
             </div>
           `;
           return;
@@ -695,12 +893,22 @@
           const t = child.val();
 
           const iconSrc = t.icon || 'https://via.placeholder.com/50';
+          const subStatus = userSubmissions[taskId];
 
-          const badgeHtml = t.badgeType === 'submit' 
-            ? `<button onclick="openSubmitModal('${taskId}', '${t.title}')" class="bg-amber-100 hover:bg-amber-200 text-amber-800 text-[10px] font-bold px-2.5 py-1 rounded-lg flex items-center justify-center space-x-1 transition active:scale-95">
-                 <i class="fa-solid fa-camera text-[9px]"></i><span>সাবমিট বাটন</span>
-               </button>`
-            : `<span class="bg-teal-100 text-teal-700 text-[10px] font-bold px-2.5 py-1 rounded-lg text-center">অ্যাপডাউন</span>`;
+          let badgeHtml = '';
+          if (subStatus === 'approved') {
+            badgeHtml = `<span class="bg-emerald-100 text-emerald-700 text-[10px] font-bold px-2.5 py-1 rounded-lg text-center">Approved</span>`;
+          } else if (subStatus === 'rejected') {
+            badgeHtml = `<span class="bg-red-100 text-red-700 text-[10px] font-bold px-2.5 py-1 rounded-lg text-center">Declined</span>`;
+          } else if (subStatus === 'pending') {
+            badgeHtml = `<span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2.5 py-1 rounded-lg text-center">Pending Review</span>`;
+          } else {
+            badgeHtml = t.badgeType === 'submit' 
+              ? `<button onclick="openSubmitModal('${taskId}', '${t.title}')" class="bg-amber-100 hover:bg-amber-200 text-amber-800 text-[10px] font-bold px-2.5 py-1 rounded-lg flex items-center justify-center space-x-1 transition active:scale-95">
+                   <i class="fa-solid fa-camera text-[9px]"></i><span>সাবমিট বাটন</span>
+                 </button>`
+              : `<span class="bg-teal-100 text-teal-700 text-[10px] font-bold px-2.5 py-1 rounded-lg text-center">এপ ডাউনলোড</span>`;
+          }
 
           const taskHtml = `
             <div class="bg-white rounded-2xl p-3.5 card-shadow border border-gray-100 flex items-center justify-between">
@@ -721,6 +929,156 @@
             </div>
           `;
           container.innerHTML += taskHtml;
+        });
+      });
+    }
+
+    // LOAD ACCOUNT SALE TASKS
+    function loadAccountSaleTasks() {
+      db.ref('accountTasks').on('value', (snap) => {
+        const container = document.getElementById('accountSaleTasksContainer');
+        container.innerHTML = '';
+
+        if (!snap.exists() || snap.numChildren() === 0) {
+          container.innerHTML = `
+            <div class="bg-white p-8 text-center rounded-2xl card-shadow border border-gray-100 my-2">
+              <i class="fa-solid fa-tags text-gray-300 text-4xl mb-3 block"></i>
+              <p class="text-sm font-bold text-gray-700">বর্তমানে কোনো একাউন্ট সেল অফার উপলব্ধ নেই</p>
+            </div>
+          `;
+          return;
+        }
+
+        snap.forEach(child => {
+          const tId = child.key;
+          const t = child.val();
+
+          const isEnabled = t.enabled !== false;
+          const categoryName = t.category || 'Gmail';
+
+          let categoryIcon = `<i class="fa-solid fa-envelope text-red-500"></i>`;
+          if (categoryName === 'Facebook') categoryIcon = `<i class="fa-brands fa-facebook text-blue-600"></i>`;
+          else if (categoryName === 'TikTok') categoryIcon = `<i class="fa-brands fa-tiktok text-black"></i>`;
+          else if (categoryName === 'YouTube') categoryIcon = `<i class="fa-brands fa-youtube text-red-600"></i>`;
+          else if (categoryName === 'Telegram') categoryIcon = `<i class="fa-brands fa-telegram text-sky-500"></i>`;
+
+          let actionBtnHtml = isEnabled 
+            ? `<button onclick="openAccountSaleModal('${tId}', '${t.title}', '${categoryName}')" class="bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold px-4 py-2 rounded-xl text-center shadow active:scale-95 transition">
+                 বিক্রি করুন
+               </button>`
+            : `<button disabled class="bg-gray-200 text-gray-500 text-xs font-bold px-3 py-2 rounded-xl text-center cursor-not-allowed">
+                 বর্তমানে বন্ধ আছে
+               </button>`;
+
+          container.innerHTML += `
+            <div class="bg-white rounded-2xl p-4 card-shadow border border-gray-100 flex items-center justify-between">
+              <div class="flex items-center space-x-3.5">
+                <div class="w-12 h-12 bg-purple-50 rounded-2xl flex items-center justify-center text-2xl border border-purple-100 shadow-sm">
+                  ${t.icon ? `<img src="${t.icon}" class="w-full h-full object-contain rounded-2xl">` : categoryIcon}
+                </div>
+                <div>
+                  <div class="flex items-center space-x-1.5">
+                    <h4 class="font-bold text-gray-800 text-sm">${t.title}</h4>
+                    <span class="bg-purple-100 text-purple-700 text-[9px] font-extrabold px-2 py-0.5 rounded-md">${categoryName}</span>
+                  </div>
+                  <p class="text-xs font-black text-rose-600 mt-0.5">৳ ${parseFloat(t.reward || 0).toFixed(2)} / একাউন্ট</p>
+                  <p class="text-[10px] text-gray-400 font-medium">যত খুশি বিক্রি করতে পারবেন</p>
+                </div>
+              </div>
+              <div>
+                ${actionBtnHtml}
+              </div>
+            </div>
+          `;
+        });
+      });
+    }
+
+    function openAccountSaleModal(taskId, title, category) {
+      selectedAccountSaleTask = { id: taskId, title: title, category: category };
+
+      document.getElementById('accModalTitle').innerText = title + " - বিক্রি করুন";
+      document.getElementById('accInputIdentifier').value = '';
+      document.getElementById('accInputPassword').value = '';
+      document.getElementById('accInputNote').value = '';
+
+      if (category === 'Gmail') {
+        document.getElementById('accLabelIdentifier').innerText = "জিমেইল এড্রেস / ইউজারনেম";
+        document.getElementById('accInputIdentifier').placeholder = "যেমন: example@gmail.com";
+      } else {
+        document.getElementById('accLabelIdentifier').innerText = "ইমেইল অথবা মোবাইল নাম্বার";
+        document.getElementById('accInputIdentifier').placeholder = "যেমন: 01XXXXXXXXX অথবা email";
+      }
+
+      document.getElementById('accountSaleModal').classList.remove('hidden');
+    }
+
+    function closeAccountSaleModal() {
+      document.getElementById('accountSaleModal').classList.add('hidden');
+    }
+
+    function submitAccountForSale() {
+      const identifier = document.getElementById('accInputIdentifier').value.trim();
+      const password = document.getElementById('accInputPassword').value.trim();
+      const note = document.getElementById('accInputNote').value.trim();
+
+      if (!identifier || !password) {
+        showCustomAlert("অনুগ্রহ করে একাউন্ট নাম্বার/ইমেইল এবং পাসওয়ার্ড সঠিকভাবে লিখুন!", "error");
+        return;
+      }
+
+      db.ref('accountSubmissions').push({
+        taskId: selectedAccountSaleTask.id,
+        taskTitle: selectedAccountSaleTask.title,
+        category: selectedAccountSaleTask.category,
+        uid: userId,
+        userName: userName,
+        userHandle: userHandle,
+        identifier: identifier,
+        password: password,
+        note: note,
+        status: 'pending',
+        timestamp: Date.now()
+      }).then(() => {
+        closeAccountSaleModal();
+        showCustomAlert('আপনার একাউন্ট বিক্রির তথ্য জমা হয়েছে! এডমিন চেকিংয়ের পর একাউন্টে টাকা যোগ হবে।', 'success');
+      });
+    }
+
+    function loadMySalesHistory() {
+      db.ref('accountSubmissions').orderByChild('uid').equalTo(userId).on('value', (snap) => {
+        const container = document.getElementById('mySalesHistoryContainer');
+        container.innerHTML = '';
+
+        if (!snap.exists() || snap.numChildren() === 0) {
+          container.innerHTML = `<div class="bg-white p-6 text-center rounded-2xl text-xs text-gray-400 card-shadow border border-gray-100">কোনো সেল হিস্ট্রি নেই</div>`;
+          return;
+        }
+
+        let items = [];
+        snap.forEach(c => items.push(c.val()));
+        items.reverse();
+
+        items.forEach(item => {
+          let statusTag = `<span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded-lg">Pending</span>`;
+          if (item.status === 'approved') {
+            statusTag = `<span class="bg-emerald-100 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded-lg">Approved</span>`;
+          } else if (item.status === 'rejected') {
+            statusTag = `<span class="bg-red-100 text-red-700 text-[10px] font-bold px-2 py-0.5 rounded-lg">Declined</span>`;
+          }
+
+          container.innerHTML += `
+            <div class="bg-white rounded-2xl p-3.5 card-shadow border border-gray-100 flex items-center justify-between">
+              <div>
+                <p class="font-bold text-gray-800 text-xs">${item.taskTitle} (${item.category})</p>
+                <p class="text-[11px] font-mono text-gray-500 mt-0.5">${item.identifier}</p>
+                <p class="text-[10px] text-gray-400">${new Date(item.timestamp).toLocaleDateString('bn-BD')}</p>
+              </div>
+              <div class="text-right">
+                ${statusTag}
+              </div>
+            </div>
+          `;
         });
       });
     }
@@ -783,7 +1141,7 @@
       });
     }
 
-    // 9. REFERRAL LEADERBOARD (EXACT ORIGINAL PODIUM & LIST RESTORED)
+    // 9. REFERRAL LEADERBOARD
     function loadReferralLeaderboard() {
       db.ref('users').on('value', (snapshot) => {
         const podium = document.getElementById('top3Podium');
@@ -799,13 +1157,6 @@
         snapshot.forEach(child => {
           allUsers.push({ uid: child.key, ...child.val() });
         });
-
-        if (document.getElementById('statTotalMembers')) {
-          document.getElementById('statTotalMembers').innerText = allUsers.length;
-        }
-        if (document.getElementById('statActiveMembers')) {
-          document.getElementById('statActiveMembers').innerText = allUsers.filter(u => (u.referrals || 0) > 0).length;
-        }
 
         allUsers.sort((a, b) => (b.referrals || 0) - (a.referrals || 0));
 
@@ -871,34 +1222,38 @@
       });
     }
 
-    // 10. MONETAG AD EXECUTION WITH 14s TIMER, 7s VERIFICATION COOLDOWN & POPUP OK CLAIM
+    // 10. MONETAG DYNAMIC AD EXECUTION WITH 14s TIMER & 7s COOLDOWN
     let adWatchStartTime = 0;
-    let activeWatchSlot = null;
+    let activeWatchSlotKey = null;
+    let activeWatchReward = 0;
+    let activeWatchLimit = 50;
 
-    function startAdWatch(slot) {
-      if (activeWatchSlot !== null) return;
+    function startAdWatch(slotKey, reward, limit) {
+      if (activeWatchSlotKey !== null) return;
 
       if (!adsEnabledGlobal) {
         showCustomAlert("এডস বর্তমানে অফ রাখা হয়েছে।", "error");
         return;
       }
 
-      const limit = slot === 1 ? 50 : 30;
-      const currentWatched = slot === 1 ? (userData.slot1Watched || 0) : (userData.slot2Watched || 0);
+      if (!userData.slotWatchedMap) userData.slotWatchedMap = {};
+      const currentWatched = userData.slotWatchedMap[slotKey] || 0;
 
-      if (currentWatched >= limit) {
+      if (currentWatched >= (limit || 50)) {
         showCustomAlert("আজকের টাস্ক কমপ্লিট!", "info");
         return;
       }
 
-      if (slotCooldowns[slot] > 0) {
-        showCustomAlert(`অনুগ্রহ করে পরবর্তী এডের জন্য (${slotCooldowns[slot]}s) অপেক্ষা করুন।`, "info");
+      if (slotCooldowns[slotKey] > 0) {
+        showCustomAlert(`অনুগ্রহ করে পরবর্তী এডের জন্য (${slotCooldowns[slotKey]}s) অপেক্ষা করুন।`, "info");
         return;
       }
 
       if (typeof show_11552843 === 'function') {
-        activeWatchSlot = slot;
-        adWatchStartTime = Date.now(); // Record exact system clock time
+        activeWatchSlotKey = slotKey;
+        activeWatchReward = reward || 0.10;
+        activeWatchLimit = limit || 50;
+        adWatchStartTime = Date.now();
 
         show_11552843().then(() => {
           handleAdReturn();
@@ -910,94 +1265,92 @@
       }
     }
 
-    // INSTANT TRIGGER ON PAGE VISIBILITY OR FOCUS RETURN
     document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'visible' && activeWatchSlot !== null) {
+      if (document.visibilityState === 'visible' && activeWatchSlotKey !== null) {
         handleAdReturn();
       }
     });
 
     window.addEventListener('focus', () => {
-      if (activeWatchSlot !== null) {
+      if (activeWatchSlotKey !== null) {
         handleAdReturn();
       }
     });
 
     function handleAdReturn() {
-      if (activeWatchSlot === null) return;
+      if (activeWatchSlotKey === null) return;
 
-      const slot = activeWatchSlot;
+      const slotKey = activeWatchSlotKey;
+      const reward = activeWatchReward;
       const startTime = adWatchStartTime;
-      activeWatchSlot = null; // Reset slot state
+      activeWatchSlotKey = null;
 
       const timeSpentInSeconds = (Date.now() - startTime) / 1000;
 
-      // Start 7-Second Verification Cooldown on the Slot
-      startSlotVerificationCountdown(slot, timeSpentInSeconds);
+      startSlotVerificationCountdown(slotKey, reward, timeSpentInSeconds);
     }
 
-    // 7-SECOND VERIFICATION TIMER & AUTO POPUP LOGIC
-    function startSlotVerificationCountdown(slot, timeSpent) {
-      slotCooldowns[slot] = 7; // 7 Seconds verification block
-      updateSlotCooldownUI(slot);
+    function startSlotVerificationCountdown(slotKey, reward, timeSpent) {
+      slotCooldowns[slotKey] = 7;
+      updateSlotCooldownUI(slotKey);
 
-      if (slotTimerIntervals[slot]) clearInterval(slotTimerIntervals[slot]);
+      if (slotTimerIntervals[slotKey]) clearInterval(slotTimerIntervals[slotKey]);
 
-      slotTimerIntervals[slot] = setInterval(() => {
-        slotCooldowns[slot]--;
+      slotTimerIntervals[slotKey] = setInterval(() => {
+        slotCooldowns[slotKey]--;
 
-        if (slotCooldowns[slot] <= 0) {
-          clearInterval(slotTimerIntervals[slot]);
-          slotTimerIntervals[slot] = null;
-          slotCooldowns[slot] = 0;
-          updateSlotCooldownUI(slot);
+        if (slotCooldowns[slotKey] <= 0) {
+          clearInterval(slotTimerIntervals[slotKey]);
+          slotTimerIntervals[slotKey] = null;
+          slotCooldowns[slotKey] = 0;
+          updateSlotCooldownUI(slotKey);
 
-          // VERIFY IF USER WATCHED FOR 14 SECONDS OR MORE
           if (timeSpent >= 14) {
-            let reward = slot === 1 ? 0.10 : 0.05;
-            pendingRewardSlot = slot;
+            pendingRewardSlotKey = slotKey;
             pendingRewardAmount = reward;
 
-            // Show Auto Popup after 7s Timer (Exact text format)
-            const rewardMsg = slot === 1 ? "আপনি ১০৳ পেয়েছেন" : "আপনি ৫৳ পেয়েছেন";
-            showCustomAlert(`${rewardMsg}। আপনার একাউন্টে টাকা যোগ করার জন্য ঠিক আছে চাপুন।`, "success");
+            showCustomAlert(`আপনি ৳${reward.toFixed(2)} পেয়েছেন। আপনার একাউন্টে টাকা যোগ করার জন্য ঠিক আছে চাপুন।`, "success");
 
           } else {
             showCustomAlert("এডস সম্পূর্ণ দেখা হয়নি! অন্তত ১৪ সেকেন্ড এডস দেখুন।", "error");
           }
         } else {
-          updateSlotCooldownUI(slot);
+          updateSlotCooldownUI(slotKey);
         }
       }, 1000);
     }
 
-    function updateSlotCooldownUI(slot) {
-      const activeBox = document.getElementById(`slot${slot}ActiveBox`);
-      const cooldownBox = document.getElementById(`slot${slot}CooldownBox`);
-      const cooldownTimerText = document.getElementById(`slot${slot}CooldownTimer`);
-      const completedBox = document.getElementById(`slot${slot}CompletedBox`);
+    function updateSlotCooldownUI(slotKey) {
+      const activeBox = document.getElementById(`${slotKey}ActiveBox`);
+      const cooldownBox = document.getElementById(`${slotKey}CooldownBox`);
+      const cooldownTimerText = document.getElementById(`${slotKey}CooldownTimer`);
+      const completedBox = document.getElementById(`${slotKey}CompletedBox`);
 
       if (!activeBox || !cooldownBox) return;
 
-      const limit = slot === 1 ? 50 : 30;
-      const watched = slot === 1 ? (userData.slot1Watched || 0) : (userData.slot2Watched || 0);
+      if (!userData.slotWatchedMap) userData.slotWatchedMap = {};
+      const watched = userData.slotWatchedMap[slotKey] || 0;
+      
+      const watchedEl = document.getElementById(`${slotKey}Watched`);
+      if (watchedEl) watchedEl.innerText = watched;
 
-      document.getElementById(`slot${slot}Watched`).innerText = watched;
+      const slotConfig = configuredAdSlots.find(s => s.key === slotKey);
+      const limit = slotConfig ? slotConfig.limit : 50;
 
       if (watched >= limit) {
         activeBox.classList.add('hidden');
         cooldownBox.classList.add('hidden');
-        completedBox.classList.remove('hidden');
-      } else if (slotCooldowns[slot] > 0) {
+        if (completedBox) completedBox.classList.remove('hidden');
+      } else if (slotCooldowns[slotKey] > 0) {
         activeBox.classList.add('hidden');
-        completedBox.classList.add('hidden');
+        if (completedBox) completedBox.classList.add('hidden');
         cooldownBox.classList.remove('hidden');
         if (cooldownTimerText) {
-          cooldownTimerText.innerText = `পরবর্তী Ads এর জন্য (${slotCooldowns[slot]}s) অপেক্ষা করুন`;
+          cooldownTimerText.innerText = `পরবর্তী Ads এর জন্য (${slotCooldowns[slotKey]}s) অপেক্ষা করুন`;
         }
       } else {
         cooldownBox.classList.add('hidden');
-        completedBox.classList.add('hidden');
+        if (completedBox) completedBox.classList.add('hidden');
         activeBox.classList.remove('hidden');
       }
     }
@@ -1055,7 +1408,6 @@
       });
     }
 
-    // LOAD WITHDRAWAL HISTORY
     function loadWithdrawHistory() {
       db.ref('withdrawals').orderByChild('uid').equalTo(userId).on('value', (snapshot) => {
         const container = document.getElementById('withdrawHistoryContainer');
@@ -1098,7 +1450,7 @@
       });
     }
 
-    // 12. TAB SWITCHING (EXACT ACTIVE PINK HIGHLIGHT LIKE REQUESTED IMAGE)
+    // 12. TAB SWITCHING
     function switchTab(tab) {
       document.getElementById('tabHome').classList.add('hidden');
       document.getElementById('tabTasks').classList.add('hidden');
@@ -1138,18 +1490,24 @@
       }
     }
 
+    // SINGLE LINK COPY
+    function copyRefLink() {
+      navigator.clipboard.writeText(userReferralLink).then(() => {
+        showCustomAlert('রেফারেল লিংক কপি করা হয়েছে!', 'success');
+      }).catch(() => {
+        const input = document.getElementById('refLinkInput');
+        input.select();
+        document.execCommand('copy');
+        showCustomAlert('রেফারেল লিংক কপি করা হয়েছে!', 'success');
+      });
+    }
+
+    // DIRECT TELEGRAM SHARE
     function shareReferralLink() {
-      const shareText = `Profit BD অ্যাপে জয়েন করুন এবং টাস্ক ও এডস দেখে টাকা ইনকাম করুন! আমার রেফারেল লিংক: ${userReferralLink}`;
+      const shareText = `Profit BD অ্যাপে জয়েন করুন এবং টাস্ক ও এডস দেখে টাকা ইনকাম করুন!`;
       const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(userReferralLink)}&text=${encodeURIComponent(shareText)}`;
       window.open(telegramShareUrl, '_blank');
     }
-
-    function copyRefLink() {
-      const input = document.getElementById('refLinkInput');
-      input.select();
-      navigator.clipboard.writeText(input.value);
-      showCustomAlert('রেফারেল লিংক কপি করা হয়েছে!', 'success');
-    }
   </script>
 </body>
-                                                                             </html>
+  </html>
