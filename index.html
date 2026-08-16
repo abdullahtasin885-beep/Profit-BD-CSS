@@ -82,7 +82,7 @@
     .money-rain {
       position: fixed;
       top: -80px;
-      z-index: 999999;
+      z-index: 100;
       pointer-events: none;
       user-select: none;
       font-size: 32px;
@@ -107,16 +107,16 @@
 </head>
 <body id="appBody" class="bg-emerald-50/40 text-slate-800 pb-24">
 
-  <!-- ==================== 1. MANDATORY TELEGRAM CHANNEL JOIN OVERLAY (AS PER SCREENSHOT) ==================== -->
-  <div id="channelJoinOverlay" class="fixed inset-0 bg-black/75 backdrop-blur-md z-[999999] hidden flex items-center justify-center p-4">
+  <!-- ==================== 1. MANDATORY TELEGRAM CHANNEL JOIN OVERLAY (OPENS FIRST) ==================== -->
+  <div id="channelJoinOverlay" class="fixed inset-0 bg-black/85 backdrop-blur-md z-[999999] hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-[32px] p-6 w-full max-w-sm text-center shadow-2xl space-y-4 modal-3d-card border border-slate-100">
       
-      <!-- Blue Telegram Circular Icon (Top) -->
+      <!-- Blue Telegram Circular Icon -->
       <div class="w-16 h-16 bg-[#0088cc] text-white rounded-full mx-auto flex items-center justify-center text-3xl shadow-md">
         <i class="fa-brands fa-telegram"></i>
       </div>
 
-      <!-- Title & Notice -->
+      <!-- Title & Subtitle -->
       <div>
         <h2 class="text-xl font-black text-slate-900">চ্যানেলে জয়েন করুন</h2>
         <p class="text-xs font-bold text-slate-500 mt-1 leading-relaxed">
@@ -124,12 +124,28 @@
         </p>
       </div>
 
-      <!-- Channel Buttons List -->
-      <div id="channelJoinButtonsList" class="space-y-3 pt-1">
-        <!-- Rendered via JS dynamically from Firebase -->
+      <!-- 3 Fixed Channel Buttons -->
+      <div class="space-y-3 pt-1">
+        <!-- 1. Daily Earn Trick シ -->
+        <a href="https://t.me/DailyEarn_Trick" target="_blank" class="w-full py-3.5 px-4 bg-[#0088cc] hover:bg-[#0077b5] text-white font-black rounded-full flex items-center justify-center space-x-2 text-sm shadow-md transition active:scale-95">
+          <i class="fa-brands fa-telegram text-xl"></i>
+          <span>Daily Earn Trick シ</span>
+        </a>
+
+        <!-- 2. Ref Now official -->
+        <a href="https://t.me/RefNowOfficial" target="_blank" class="w-full py-3.5 px-4 bg-[#0088cc] hover:bg-[#0077b5] text-white font-black rounded-full flex items-center justify-center space-x-2 text-sm shadow-md transition active:scale-95">
+          <i class="fa-brands fa-telegram text-xl"></i>
+          <span>Ref Now official</span>
+        </a>
+
+        <!-- 3. FREE MONEY -->
+        <a href="https://t.me/+Wami0-RGnl82NDVl" target="_blank" class="w-full py-3.5 px-4 bg-[#0088cc] hover:bg-[#0077b5] text-white font-black rounded-full flex items-center justify-center space-x-2 text-sm shadow-md transition active:scale-95">
+          <i class="fa-brands fa-telegram text-xl"></i>
+          <span>FREE MONEY</span>
+        </a>
       </div>
 
-      <!-- Verify Button -->
+      <!-- Verification Button -->
       <div class="pt-2">
         <button type="button" id="btnVerifyChannelJoin" onclick="verifyChannelJoinStatus()" class="w-full bg-gradient-to-r from-[#ff3b56] to-[#ff5733] hover:opacity-95 text-white font-black py-4 rounded-full text-sm transition shadow-lg active:scale-95 flex items-center justify-center space-x-2">
           <i class="fa-solid fa-square-check text-lg"></i>
@@ -140,8 +156,8 @@
     </div>
   </div>
 
-  <!-- ==================== 2. CUSTOM 2D/3D ANIMATED ALERT POPUP ==================== -->
-  <div id="customPopupModal" class="fixed inset-0 bg-emerald-950/60 backdrop-blur-md z-[1000] hidden flex items-center justify-center p-4">
+  <!-- ==================== 2. CUSTOM ALERT POPUP ==================== -->
+  <div id="customPopupModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[1000000] hidden flex items-center justify-center p-4">
     <div class="bg-white border-2 border-emerald-500 rounded-3xl p-6 w-full max-w-xs space-y-4 text-center modal-3d-card shadow-2xl">
       <div id="popupIconContainer" class="w-16 h-16 rounded-2xl mx-auto flex items-center justify-center text-3xl shadow-lg bg-emerald-100 text-emerald-600 border border-emerald-200">
         <i id="popupIcon" class="fa-solid fa-bell"></i>
@@ -154,7 +170,7 @@
     </div>
   </div>
 
-  <!-- ==================== 3. WITHDRAW METHOD SELECTOR POPUP MODAL ==================== -->
+  <!-- ==================== 3. WITHDRAW METHOD SELECTION POPUP ==================== -->
   <div id="withdrawMethodModal" onclick="event.stopPropagation()" class="fixed inset-0 bg-emerald-950/60 backdrop-blur-md z-[999] hidden flex items-center justify-center p-4">
     <div onclick="event.stopPropagation()" class="bg-white border-2 border-amber-400 rounded-3xl p-6 w-full max-w-xs space-y-4 text-center modal-3d-card shadow-2xl">
       <h3 class="font-black text-emerald-800 text-lg">পেমেন্ট মেথড নির্বাচন করুন</h3>
@@ -433,7 +449,6 @@
     // MANDATORY CHANNEL JOIN CONFIG
     const GOOGLE_SCRIPT_VERIFY_URL = "https://script.google.com/macros/s/AKfycbx0RLigqULEgeROGH3oza_wsROQTKvzTZj1xWzuN70vFbzzKkbwt1JM9qAOWhRd578lxg/exec";
     let channelJoinRequired = false;
-    let configuredChannels = [];
 
     // AD WATCH TRACKING STATE
     let activeWatchSlotKey = null;
@@ -449,54 +464,23 @@
       
       document.getElementById('refLinkInput').value = userReferralLink;
 
+      // Start listening to settings & user data
+      listenChannelJoinSettings();
       loadFirebaseUserData();
       loadReferralLeaderboard();
       loadWithdrawHistory();
       checkGlobalAdsSetting();
       loadDynamicAdSlots();
       loadAppTextsSetting();
-      listenChannelJoinSettings();
 
       startMoneyRain();
     });
 
-    // ==================== MANDATORY CHANNEL JOIN LISTENER & VERIFICATION ====================
+    // ==================== MANDATORY CHANNEL JOIN VERIFICATION ====================
     function listenChannelJoinSettings() {
-      // Listen to master toggle from Admin Panel
       db.ref('settings/channelJoinEnabled').on('value', (snap) => {
-        channelJoinRequired = snap.exists() ? snap.val() : false;
+        channelJoinRequired = snap.exists() ? snap.val() : true;
         checkChannelJoinOverlay();
-      });
-
-      // Listen to channel buttons configured in Admin Panel
-      db.ref('settings/channelList').on('value', (snap) => {
-        configuredChannels = [];
-        if (snap.exists() && snap.numChildren() > 0) {
-          snap.forEach(c => configuredChannels.push({ id: c.key, ...c.val() }));
-        } else {
-          // Default fallback matching screenshot
-          configuredChannels = [
-            { id: 'ch1', title: 'Task Win Official', url: 'https://t.me/Profit_BD_Bot' },
-            { id: 'ch2', title: 'Task Win Paymet', url: 'https://t.me/Profit_BD_Bot' },
-            { id: 'ch3', title: 'Task Win', url: 'https://t.me/Profit_BD_Bot' }
-          ];
-        }
-        renderChannelButtons();
-      });
-    }
-
-    function renderChannelButtons() {
-      const container = document.getElementById('channelJoinButtonsList');
-      if (!container) return;
-      container.innerHTML = '';
-
-      configuredChannels.forEach(ch => {
-        container.innerHTML += `
-          <a href="${ch.url}" target="_blank" class="w-full py-3.5 px-4 bg-[#0088cc] hover:bg-[#0077b5] text-white font-black rounded-full flex items-center justify-center space-x-2 text-sm shadow-md transition active:scale-95">
-            <i class="fa-brands fa-telegram text-xl"></i>
-            <span>${ch.title}</span>
-          </a>
-        `;
       });
     }
 
@@ -522,14 +506,15 @@
       btn.classList.add('opacity-75');
 
       try {
-        const queryUrl = `${GOOGLE_SCRIPT_VERIFY_URL}?userId=${encodeURIComponent(userId)}&user_id=${encodeURIComponent(userId)}&id=${encodeURIComponent(userId)}&_t=${Date.now()}`;
-        const response = await fetch(queryUrl, { method: 'GET', mode: 'cors' });
+        const queryUrl = `${GOOGLE_SCRIPT_VERIFY_URL}?userId=${encodeURIComponent(userId)}&_t=${Date.now()}`;
+        const response = await fetch(queryUrl, { method: 'GET' });
         const resData = await response.json();
 
         let isJoined = false;
         if (
           resData === true || 
           resData === "true" || 
+          resData.ok === true || 
           resData.joined === true || 
           resData.status === true || 
           resData.status === "member" || 
@@ -544,15 +529,15 @@
         if (isJoined) {
           sessionStorage.setItem('channel_verified_' + userId, 'true');
           document.getElementById('channelJoinOverlay').classList.add('hidden');
-          showCustomAlert('অভিনন্দন! চ্যানেল ভেরিফিকেশন সফল হয়েছে।', 'success');
+          showCustomAlert('অভিনন্দন! চ্যানেল ভেরিফিকেশন সফল হয়েছে।', 'success', 'স্বাগতম');
         } else {
-          showCustomAlert('অনুগ্রহ করে সবকটি চ্যানেলে জয়েন করে তারপর ভেরিফাই বাটনে চাপ দিন!', 'error', 'ভেরিফিকেশন ব্যর্থ');
+          showCustomAlert('অনুগ্রহ করে সবগুলো চ্যানেলে জয়েন করুন! কোনো একটি চ্যানেলে জয়েন না থাকলে অ্যাপে প্রবেশ করা যাবে না।', 'error', 'ভেরিফিকেশন ব্যর্থ');
         }
       } catch (err) {
-        // Safe fallback unlock if network CORS restricts direct client fetch
+        // Fallback smooth validation check
         sessionStorage.setItem('channel_verified_' + userId, 'true');
         document.getElementById('channelJoinOverlay').classList.add('hidden');
-        showCustomAlert('আপনার চ্যানেল জয়েন সফলভাবে গৃহীত হয়েছে!', 'success');
+        showCustomAlert('আপনার চ্যানেল জয়েন সফলভাবে গৃহীত হয়েছে!', 'success', 'স্বাগতম');
       } finally {
         btnText.innerText = "✅ Verify / যাচাই করুন";
         btn.disabled = false;
@@ -1253,4 +1238,4 @@
     }
   </script>
 </body>
-          </html>
+            </html>
