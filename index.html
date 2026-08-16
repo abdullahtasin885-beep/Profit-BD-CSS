@@ -118,7 +118,7 @@
 </head>
 <body id="appBody" class="bg-emerald-50/40 text-slate-800 pb-24">
 
-  <!-- ==================== 1. MANDATORY TELEGRAM CHANNEL JOIN OVERLAY (LOCKED FIRST) ==================== -->
+  <!-- ==================== 1. MANDATORY TELEGRAM CHANNEL JOIN OVERLAY ==================== -->
   <div id="channelJoinOverlay" class="fixed inset-0 bg-black/85 backdrop-blur-md z-[999999] hidden flex items-center justify-center p-4 select-none">
     <div class="bg-white rounded-[32px] p-6 w-full max-w-sm text-center shadow-2xl space-y-4 modal-3d-card border border-slate-100">
       
@@ -159,8 +159,10 @@
       <!-- Verification Button -->
       <div class="pt-2">
         <button type="button" id="btnVerifyChannelJoin" onclick="verifyChannelJoinStatus()" class="w-full btn-3d-red text-white font-black py-4 rounded-full text-sm transition flex items-center justify-center space-x-2 cursor-pointer">
-          <i class="fa-solid fa-square-check text-lg"></i>
-          <span id="btnVerifyText">✅ Verify / যাচাই করুন</span>
+          <span id="btnVerifyText" class="flex items-center justify-center space-x-2">
+            <i class="fa-solid fa-square-check text-lg"></i>
+            <span>✅ Verify / যাচাই করুন</span>
+          </span>
         </button>
       </div>
 
@@ -457,7 +459,7 @@
     let configuredAdSlots = [];
     let myReferredMembersList = [];
 
-    // ==================== STRICT TELEGRAM BOT API VERIFICATION CONFIG ====================
+    // ==================== HIGH-SPEED TELEGRAM BOT API VERIFICATION CONFIG ====================
     const TELEGRAM_BOT_TOKEN = "8675561782:AAGuaeCQ-DCohky5mfL2dSviVKEc189pfHw";
     const REQUIRED_CHANNELS = [
       "@DailyEarn_Trick",
@@ -491,7 +493,7 @@
       startMoneyRain();
     });
 
-    // ==================== MANDATORY CHANNEL JOIN CHECK & STRICT VERIFICATION ====================
+    // ==================== ULTRA-FAST PARALLEL CHANNEL JOIN VERIFICATION ====================
     function listenChannelJoinSettings() {
       db.ref('settings/channelJoinEnabled').on('value', (snap) => {
         channelJoinRequired = snap.exists() ? snap.val() : true;
@@ -512,51 +514,54 @@
       }
     }
 
+    // Single Channel Check with Timeout Controller (Max 4.5s)
+    async function checkSingleChannel(chatId, uId) {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 4500);
+
+      try {
+        const apiUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getChatMember?chat_id=${encodeURIComponent(chatId)}&user_id=${encodeURIComponent(uId)}`;
+        const response = await fetch(apiUrl, { signal: controller.signal });
+        clearTimeout(timeoutId);
+        const data = await response.json();
+
+        if (data && data.ok === true && data.result) {
+          const status = data.result.status;
+          return ['member', 'creator', 'administrator'].includes(status);
+        }
+        return false;
+      } catch (err) {
+        clearTimeout(timeoutId);
+        return false;
+      }
+    }
+
     async function verifyChannelJoinStatus() {
       const btnText = document.getElementById('btnVerifyText');
       const btn = document.getElementById('btnVerifyChannelJoin');
       
-      btnText.innerText = "যাচাই করা হচ্ছে...";
+      btnText.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-lg"></i> <span>যাচাই করা হচ্ছে...</span>';
       btn.disabled = true;
       btn.classList.add('opacity-75');
 
       try {
-        let allJoined = true;
+        // ৩টি চ্যানেল একসাথে প্যারালাল রিকোয়েস্টে চেক হবে (মাত্র ১-২ সেকেন্ড সময় লাগবে)
+        const checkPromises = REQUIRED_CHANNELS.map(chatId => checkSingleChannel(chatId, userId));
+        const results = await Promise.all(checkPromises);
 
-        // প্রতিটি চ্যানেলের জন্য লুপ চালিয়ে আলাদা আলাদা এপিআই কল দিয়ে চেক করা
-        for (let i = 0; i < REQUIRED_CHANNELS.length; i++) {
-          const chatId = REQUIRED_CHANNELS[i];
-          const apiUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getChatMember?chat_id=${encodeURIComponent(chatId)}&user_id=${encodeURIComponent(userId)}`;
-
-          const response = await fetch(apiUrl);
-          const data = await response.json();
-
-          if (data && data.ok === true && data.result) {
-            const status = data.result.status;
-            // সদস্য না হলে ভেরিফিকেশন ব্যর্থ
-            if (!['member', 'creator', 'administrator'].includes(status)) {
-              allJoined = false;
-              break;
-            }
-          } else {
-            allJoined = false;
-            break;
-          }
-        }
+        const allJoined = results.every(status => status === true);
 
         if (allJoined) {
           sessionStorage.setItem('channel_verified_' + userId, 'true');
           document.getElementById('channelJoinOverlay').classList.add('hidden');
           showCustomAlert('ভেরিফিকেশন সফল হয়েছে! আপনি সবগুলো চ্যানেলে জয়েন করেছেন।', 'success', 'ভেরিফিকেশন সফল');
         } else {
-          // জয়েন না থাকলে কোনো ভাবেই আনলক হবে না
           showCustomAlert('দয়া করে আমাদের সব অফিসিয়াল চ্যানেলে জয়েন করুন! কোনো একটি চ্যানেলে জয়েন না থাকলে অ্যাপে প্রবেশ করা যাবে না।', 'error', 'ভেরিফিকেশন ব্যর্থ');
         }
       } catch (err) {
-        // কোনো ইরোর হলেও ইউজারকে ঢুকতে দেওয়া হবে না
         showCustomAlert('দয়া করে আমাদের সব অফিসিয়াল চ্যানেলে জয়েন করুন! কোনো একটি চ্যানেলে জয়েন না থাকলে অ্যাপে প্রবেশ করা যাবে না।', 'error', 'ভেরিফিকেশন ব্যর্থ');
       } finally {
-        btnText.innerText = "✅ Verify / যাচাই করুন";
+        btnText.innerHTML = '<i class="fa-solid fa-square-check text-lg"></i> <span>✅ Verify / যাচাই করুন</span>';
         btn.disabled = false;
         btn.classList.remove('opacity-75');
       }
@@ -1255,4 +1260,4 @@
     }
   </script>
 </body>
-        </html>
+          </html>
